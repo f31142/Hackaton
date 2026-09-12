@@ -1,0 +1,48 @@
+/* Unified warm palette for Today Ieum and Date tabs */
+:root{--sync-bg:#fffaf7;--sync-soft:#fbf5f1;--sync-rose:#c85c68;--sync-rose-deep:#9b4852;--sync-border:#eadfd9;--sync-text:#2f2926;--sync-muted:#81736d}
+
+/* Make the discover/date hero cards use the same visual language as Likes/Profile */
+.ieum-hero-card,
+.ieum-date-insert{
+  background:linear-gradient(135deg,#fff8f4,#fffaf7 65%,#fff)!important;
+  color:var(--sync-text)!important;
+  border:1px solid var(--sync-border)!important;
+  box-shadow:none!important;
+}
+.ieum-hero-card:after,
+.ieum-date-insert:after{
+  background:radial-gradient(circle,rgba(200,92,104,.10),transparent 72%)!important;
+}
+.ieum-hero-card .eyebrow-new,
+.ieum-date-insert .eyebrow-new{color:#b85d67!important}
+.ieum-hero-card p,
+.ieum-date-insert p{color:var(--sync-muted)!important}
+.ieum-up-btn.primary{background:var(--sync-rose)!important;color:#fff!important}
+.ieum-up-btn.ghost{background:#fff!important;color:#7f514d!important;border:1px solid #e6d8d2!important}
+.premium-chip{background:#f6e4e6!important;color:var(--sync-rose-deep)!important;border:1px solid #edd4d7!important}
+
+/* Today tab should no longer have a dark standalone card */
+.discover-diff{background:linear-gradient(135deg,#fff8f4,#fffaf7 65%,#fff)!important;border-color:var(--sync-border)!important}
+.today-score{
+  background:#fff!important;
+  color:var(--sync-text)!important;
+  border:1px solid var(--sync-border)!important;
+  box-shadow:none!important;
+}
+.today-score b{color:var(--sync-rose)!important}
+.today-score span,.today-score small{color:#8b7d77!important}
+.today-cards article{background:#fff!important;border-color:var(--sync-border)!important}
+.today-cards article>span{background:#fff0f2!important;color:var(--sync-rose)!important}
+.today-actions button.primary{background:var(--sync-rose)!important;border-color:var(--sync-rose)!important}
+
+/* Date planner details follow the same card/border/button palette */
+.city-tabs button{background:#fff!important;border-color:var(--sync-border)!important;color:#5d504a!important}
+.city-tabs button.active{background:var(--sync-rose)!important;color:#fff!important;border-color:var(--sync-rose)!important}
+.route-summary,.route-timeline{background:#fff!important;border-color:var(--sync-border)!important}
+.stay-toggle{background:#fff0f2!important}
+.stay-toggle button,.route-actions .main{background:var(--sync-rose)!important;color:#fff!important}
+.route-actions .sub{background:#f6eee8!important;color:#5f514a!important}
+.timeline-item time{color:#a44f59!important}
+
+/* Keep the same page-level surface across all four tabs */
+#content{--tab-surface:#fffaf7}
