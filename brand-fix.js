@@ -5,7 +5,8 @@ const replaceCopy=(root)=>{
   for(const node of nodes){
     if(node.nodeValue?.includes('MEETRUST')) node.nodeValue=node.nodeValue.replaceAll('MEETRUST','전북 이음');
     if(node.nodeValue?.includes('meetrust')) node.nodeValue=node.nodeValue.replaceAll('meetrust','전북 이음');
-    if(node.nodeValue?.includes('오늘의 잇음')) node.nodeValue=node.nodeValue.replaceAll('오늘의 잇음','오늘의 이음');
+    const oldIeum='\uC787\uC74C';
+    if(node.nodeValue?.includes(oldIeum)) node.nodeValue=node.nodeValue.replaceAll(oldIeum,'이음');
   }
 };
 
