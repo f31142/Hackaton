@@ -1,48 +1,62 @@
-import { CITIES, PEOPLE } from './data.js?v=ieum3';
-import { match, draftOpener } from './core.js?v=ieum3';
-import { ROUTES, FESTIVALS } from './local-guide.js?v=ieum3';
+import { CITIES, PEOPLE } from './data.js?v=ieum5';
+import { match, draftOpener } from './core.js?v=ieum5';
+import { ROUTES, FESTIVALS } from './local-guide.js?v=ieum5';
 
 export const EXTRA_KEY = 'ieum:features:v3';
 export const LEGACY_EXTRA_KEY = 'ieum:extra:v1';
 export const MBTIS = ['ENFP','ENFJ','ENTP','ENTJ','ESFP','ESFJ','ESTP','ESTJ','INFP','INFJ','INTP','INTJ','ISFP','ISFJ','ISTP','ISTJ'];
 export const normalizeMBTI = value => MBTIS.includes(String(value).toUpperCase()) ? String(value).toUpperCase() : '';
 export const validPhoto = value => typeof value === 'string' && value.length <= 1800000 && /^data:image\/(?:jpeg|png|webp);base64,[A-Za-z0-9+/]+=*$/.test(value);
-export const routesFor = city => ROUTES.filter(r => r.city === city);
+export function festivalsOn(city, date) {
+  if (!validDate(date)) return [];
+  return FESTIVALS.filter(f => f.city === city && f.start <= date && date <= f.end);
+}
+export function festivalRoute(festival) {
+  return {id:`festival-${festival.id}`,city:festival.city,title:`${festival.name}, 함께 즐기는 하루`,mood:'지역 축제',
+    meet:festival.place,meal:`${festival.place} 주변 식당`,cafe:`${festival.place} 주변 카페`,sight:festival.name,
+    note:'일별 프로그램과 운영 시간을 공식 안내에서 확인하고, 혼잡한 시간에는 여유를 두고 이동해요.',
+    source:festival.url,movie:false,festivalId:festival.id};
+}
+export const routesFor = (city, date='') => [...ROUTES.filter(r => r.city === city),...festivalsOn(city,date).map(festivalRoute)];
 export function normalizePlan(raw = {}) {
+  if (!raw || typeof raw !== 'object') raw = {};
   const city = CITIES.includes(raw.city) ? raw.city : '전주';
-  const route = routesFor(city).find(r => r.id === raw.routeId) || routesFor(city)[0];
+  const date = validDate(raw.date) ? raw.date : '';
+  const route = routesFor(city,date).find(r => r.id === raw.routeId) || routesFor(city,date)[0];
   return { city, routeId:route.id, movie:raw.movie === true && route.movie, stay:raw.stay === true,
     start:/^(?:[01]\d|2[0-3]):[0-5]\d$/.test(raw.start) ? raw.start : '13:00',
-    date:validDate(raw.date) ? raw.date : '', personId:PEOPLE.some(p => p.id === raw.personId) ? raw.personId : '' };
+    date, personId:PEOPLE.some(p => p.id === raw.personId) ? raw.personId : '' };
 }
+export function routeForPlan(input) { const plan=normalizePlan(input); return routesFor(plan.city,plan.date).find(r=>r.id===plan.routeId); }
 export function readExtra(storage) {
   let raw = {};
   try { raw = JSON.parse(storage.getItem(EXTRA_KEY) || storage.getItem(LEGACY_EXTRA_KEY) || '{}') || {}; } catch {}
   const seen = new Set();
   return { photo:validPhoto(raw.photo) ? raw.photo : '', mbti:normalizeMBTI(raw.mbti), trial:raw.trial === true,
     planner:normalizePlan(raw.planner || {}),
-    routes:Array.isArray(raw.routes) ? raw.routes.filter(r => r && ROUTES.some(x => x.id === r.routeId && x.city === r.city) && PEOPLE.some(p => p.id === r.personId)).map(normalizePlan).filter(r => { const key = planKey(r); if (seen.has(key)) return false; seen.add(key); return true; }).slice(0,20) : [],
+    routes:Array.isArray(raw.routes) ? raw.routes.filter(r => r && routesFor(r.city,r.date).some(x => x.id === r.routeId) && PEOPLE.some(p => p.id === r.personId)).map(normalizePlan).filter(r => { const key = planKey(r); if (seen.has(key)) return false; seen.add(key); return true; }).slice(0,20) : [],
     festivals:Array.isArray(raw.festivals) ? [...new Set(raw.festivals)].filter(id => FESTIVALS.some(f => f.id === id)) : [] };
 }
 export function saveExtra(storage, extra) { try { storage.setItem(EXTRA_KEY, JSON.stringify(extra)); return true; } catch { return false; } }
 export const planKey = p => [p.personId,p.city,p.routeId,p.movie,p.stay,p.start,p.date].join('|');
 export function itinerary(input) {
-  const plan = normalizePlan(input), route = ROUTES.find(r => r.id === plan.routeId);
+  const plan = normalizePlan(input), route = routeForPlan(plan);
   const steps = [{kind:'meet',label:'만나는 곳',name:route.meet,minutes:20,tip:'찾기 쉬운 입구에서 만나요.'}];
   if (plan.movie) steps.push({kind:'movie',label:'영화',name:`${route.city} 영화관`,minutes:150,tip:'상영작과 시간을 함께 고른 뒤 예약해요. 이동 여유를 포함한 예시예요.'});
-  steps.push({kind:'meal',label:'함께 식사',name:route.meal,minutes:70,tip:'못 먹는 음식과 좋아하는 메뉴를 먼저 물어봐요.'},
-    {kind:'cafe',label:'커피 한 잔',name:route.cafe,minutes:70,tip:'지도의 최근 리뷰와 영업시간을 보고 골라요.'},
-    {kind:'sight',label:'지역 명소',name:route.sight,minutes:80,tip:route.note});
+  steps.push({kind:'meal',label:'함께 식사',name:route.meal,minutes:70,tip:'못 먹는 음식과 좋아하는 메뉴를 먼저 물어봐요.'});
+  if(route.festivalId)steps.push({kind:'festival',label:'축제 즐기기',name:route.sight,minutes:120,tip:route.note});
+  steps.push({kind:'cafe',label:'커피 한 잔',name:route.cafe,minutes:70,tip:'지도의 최근 리뷰와 영업시간을 보고 골라요.'});
+  if(!route.festivalId)steps.push({kind:'sight',label:'지역 명소',name:route.sight,minutes:80,tip:route.note});
   if (plan.stay) steps.push({kind:'stay',label:'숙박 · 선택',name:`${route.city} 숙박업소`,minutes:0,tip:'하루가 더 아쉽다면? 두 사람 모두 원할 때 위치와 객실을 함께 골라요.'});
   let elapsed = Number(plan.start.slice(0,2))*60 + Number(plan.start.slice(3));
   return steps.map(step => { const day = Math.floor(elapsed / 1440); const at = `${day ? '다음 날 ' : ''}${String(Math.floor(elapsed%1440/60)).padStart(2,'0')}:${String(elapsed%60).padStart(2,'0')}`; elapsed += step.minutes; return {...step,at}; });
 }
 export function routeText(plan, person) {
-  const r = ROUTES.find(r => r.id === plan.routeId);
+  const r = routeForPlan(plan);
   return `${person.name} 님과 ${plan.city}에서 · ${r.title}\n${plan.date || '날짜 미정'} · ${plan.start} 시작\n${itinerary(plan).map(s => `${s.at} ${s.label} — ${s.name}`).join('\n')}\n시간은 계획 예시이며 실제 예약이나 확정 약속이 아닙니다.`;
 }
 export function coachPlan(user, person, plan, tone='warm', scenario='open') {
-  const m=match(user,person), r=ROUTES.find(r=>r.id===normalizePlan(plan).routeId);
+  const m=match(user,person), r=routeForPlan(plan);
   const topic=m.interests[0]||person.interests[0];
   const invitation=tone==='light' ? `${r.city}에서 ${r.cafe} 같이 가볼래요? 커피 마시고 괜찮으면 ${r.sight}도 둘러봐요!` : tone==='calm' ? `괜찮으시면 ${r.city}에서 커피 한 잔 하실래요? ${r.cafe}에서 이야기 나누고 싶어요.` : `${r.cafe}에서 커피 한 잔 어때요? 이야기하다가 둘 다 괜찮으면 ${r.sight}도 같이 둘러보고 싶어요.`;
   const scenarios={

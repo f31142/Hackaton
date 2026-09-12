@@ -39,7 +39,7 @@ test('broken or blocked storage cannot break the app and unknown profile IDs are
 test('user strings are escaped and AI prompts send relevant preferences without names or age',()=>{
   assert.equal(escapeHTML('<img onerror="x">'), '&lt;img onerror=&quot;x&quot;&gt;');
   const u={...SAMPLE_USER,name:'PRIVATE_NAME',age:45,note:'교대 근무라 주말 시간이 유동적이에요.'};
-  const prompt=JSON.stringify(buildPrompt('profile',u));
+  const prompt=JSON.stringify(buildPrompt('reason',u,PEOPLE[0]));
   assert.ok(prompt.includes(u.note));assert.ok(!prompt.includes(u.name));assert.ok(!prompt.includes('45'));
   assert.ok(QUESTIONS.every(q=>prompt.includes(q.options[u.answers[q.id]])));
   assert.match(draftOpener(u,PEOPLE[0]),/카페/);
