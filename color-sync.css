@@ -136,4 +136,44 @@
 .route-actions .sub{background:#f6eee8!important;color:#5f514a!important}
 .timeline-item time{color:var(--brand-pink-deep)!important}
 
+/* The "first appointment" full-screen flow has its own old blue palette. */
+.ix-overlay{background:#fbf8f7!important}
+.ix-progress span{background:var(--brand-pink)!important}
+.ix-copy>span,.ix-result>span{color:var(--brand-pink-deep)!important}
+.ix-fields input:focus,.ix-note:focus{
+  border-color:var(--brand-pink)!important;
+  box-shadow:0 0 0 4px rgba(221,111,123,.10)!important;
+}
+.ix-choice:hover{border-color:#e8b9bf!important}
+.ix-choice.selected{
+  border-color:var(--brand-pink)!important;
+  background:#fff4f5!important;
+  color:#8f454e!important;
+}
+.ix-choice.selected b{color:var(--brand-pink)!important}
+.ix-pill.selected{
+  background:var(--brand-pink)!important;
+  border-color:var(--brand-pink)!important;
+  color:#fff!important;
+}
+.ix-next{
+  background:var(--brand-pink)!important;
+  box-shadow:0 10px 24px rgba(221,111,123,.18)!important;
+}
+.ix-next:hover{background:var(--brand-pink-deep)!important}
+.ix-check{background:#fdecef!important;color:var(--brand-pink)!important}
+.ix-result h1 strong{color:var(--brand-pink)!important}
+.ix-tagline span{background:#fff0f2!important;color:var(--brand-pink-deep)!important}
+.ix-match>b{color:var(--brand-pink)!important}
+.ix-person.selected{
+  border-color:var(--brand-pink)!important;
+  box-shadow:0 0 0 3px rgba(221,111,123,.10)!important;
+}
+.ix-person>b{
+  color:var(--brand-pink-deep)!important;
+  background:#fff0f2!important;
+}
+.ix-date-card>div{background:#faf6f4!important}
+.ix-message button{background:#fff0f2!important;color:var(--brand-pink-deep)!important}
+
 #content{--tab-surface:#fffaf7}
