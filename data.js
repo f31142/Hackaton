@@ -17,4 +17,4 @@ export const PEOPLE = [
   {id:'junho',name:'준호',age:25,gender:'man',city:'전주',areas:['전주','익산'],job:'대학원생',photo:4,mbti:'INTP',quote:'취향이 달라도, 서로의 이야기는 궁금했으면.',about:'새로 나온 영화와 전시를 챙겨봐요. 서로의 바쁜 시간을 존중하면서 함께할 약속은 꼭 지키고 싶어요.',interests:['영화','전시','독서','카페'],times:['토요일 오후','일요일 오후'],answers:{pace:1,contact:2,weekend:1,plan:1,conflict:0}},
   {id:'minjae',name:'민재',age:29,gender:'man',city:'남원',areas:['남원','전주'],job:'로컬 브랜드 운영',photo:5,mbti:'ENFP',quote:'계획에 없던 주말 여행, 같이 떠날래요?',about:'전북의 새로운 풍경을 찾는 게 취미예요. 일할 땐 집중하고 쉬는 날에는 밖에서 에너지를 채워요.',interests:['여행','운동','맛집','사진'],times:['평일 낮','토요일 저녁','일요일 오후'],answers:{pace:2,contact:0,weekend:2,plan:2,conflict:0}}
 ];
-export const NAV = [{id:'discover',label:'오늘의 잇음',icon:'compass'},{id:'likes',label:'관심',icon:'heart'},{id:'dates',label:'데이트',icon:'calendar'},{id:'profile',label:'내 프로필',icon:'user'}];
+export const NAV = [{id:'discover',label:'오늘의 이음',icon:'compass'},{id:'likes',label:'관심',icon:'heart'},{id:'dates',label:'데이트',icon:'calendar'},{id:'profile',label:'내 프로필',icon:'user'}];
