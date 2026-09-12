@@ -1,7 +1,73 @@
-/* Unified warm palette for Today Ieum and Date tabs */
-:root{--sync-bg:#fffaf7;--sync-soft:#fbf5f1;--sync-rose:#c85c68;--sync-rose-deep:#9b4852;--sync-border:#eadfd9;--sync-text:#2f2926;--sync-muted:#81736d}
+/* Match Today Ieum + Date tabs to the exact Ieum brand pink */
+:root{
+  --brand-pink:#dd6f7b;
+  --brand-pink-deep:#c95b69;
+  --brand-pink-dark:#9f4f58;
+  --brand-pink-soft:#fff1f2;
+  --brand-pink-soft-2:#f9e4e7;
+  --sync-bg:#fffaf7;
+  --sync-soft:#fbf5f1;
+  --sync-rose:#dd6f7b;
+  --sync-rose-deep:#c95b69;
+  --sync-border:#eadfd9;
+  --sync-text:#2f2926;
+  --sync-muted:#81736d;
+}
 
-/* Make the discover/date hero cards use the same visual language as Likes/Profile */
+/* Header: use the same pink as the Ieum mark */
+.brand{color:#7a3f49!important}
+.brand-mark{background:var(--brand-pink)!important;color:#fff!important}
+.brand-dot{color:var(--brand-pink)!important}
+.desktop-nav .nav-item.active,.mobile-nav .nav-item.active{
+  color:var(--brand-pink-deep)!important;
+  border-color:var(--brand-pink)!important;
+}
+.demo-badge{background:#fff4f5!important;color:#a44f59!important;border-color:#f0d7da!important}
+
+/* ---------------- TODAY'S IEUM ---------------- */
+.ieum-revolution .ieum-live-dot{
+  background:var(--brand-pink)!important;
+  box-shadow:0 0 0 6px rgba(221,111,123,.12)!important;
+}
+.ieum-revolution .ieum-hero h1 strong,
+.ieum-revolution .ieum-section-heading>div:first-child>span,
+.ieum-revolution .ieum-flow-title>span,
+.ieum-revolution .ieum-index strong,
+.ieum-revolution .ieum-photo-badge,
+.ieum-revolution .ieum-availability,
+.ieum-revolution .ieum-flow-steps b{
+  color:var(--brand-pink)!important;
+}
+.ieum-revolution .ieum-primary{
+  background:var(--brand-pink)!important;
+  color:#fff!important;
+  box-shadow:0 8px 24px rgba(221,111,123,.18)!important;
+}
+.ieum-revolution .ieum-primary:hover{background:var(--brand-pink-deep)!important}
+.ieum-revolution .ieum-primary.light{
+  background:#fff!important;
+  color:var(--brand-pink-deep)!important;
+  box-shadow:none!important;
+}
+.ieum-revolution .ieum-hero-stat{
+  background:linear-gradient(160deg,#fff8f8,#fff0f2)!important;
+  border-color:#f2dadd!important;
+}
+.ieum-revolution .ieum-hero-stat>strong{color:var(--brand-pink)!important}
+.ieum-revolution .ieum-availability>span,
+.ieum-revolution .ieum-ai-icon{background:var(--brand-pink)!important}
+.ieum-revolution .ieum-score{
+  background:var(--brand-pink-soft)!important;
+  color:var(--brand-pink-deep)!important;
+}
+.ieum-revolution .ieum-bottom-cta{
+  background:linear-gradient(135deg,#d96875,#c85d69)!important;
+}
+.ieum-revolution .ieum-bottom-cta>div>span{color:#ffe9ec!important}
+.ieum-revolution button:focus-visible{outline-color:#ef9aa4!important}
+.ieum-revolution .ieum-card-hit:focus-visible{outline-color:#ef9aa4!important}
+
+/* Today tab supporting cards */
 .ieum-hero-card,
 .ieum-date-insert{
   background:linear-gradient(135deg,#fff8f4,#fffaf7 65%,#fff)!important;
@@ -11,17 +77,17 @@
 }
 .ieum-hero-card:after,
 .ieum-date-insert:after{
-  background:radial-gradient(circle,rgba(200,92,104,.10),transparent 72%)!important;
+  background:radial-gradient(circle,rgba(221,111,123,.10),transparent 72%)!important;
 }
 .ieum-hero-card .eyebrow-new,
-.ieum-date-insert .eyebrow-new{color:#b85d67!important}
+.ieum-date-insert .eyebrow-new{color:var(--brand-pink-deep)!important}
 .ieum-hero-card p,
 .ieum-date-insert p{color:var(--sync-muted)!important}
-.ieum-up-btn.primary{background:var(--sync-rose)!important;color:#fff!important}
+.ieum-up-btn.primary{background:var(--brand-pink)!important;color:#fff!important}
+.ieum-up-btn.primary:hover{background:var(--brand-pink-deep)!important}
 .ieum-up-btn.ghost{background:#fff!important;color:#7f514d!important;border:1px solid #e6d8d2!important}
-.premium-chip{background:#f6e4e6!important;color:var(--sync-rose-deep)!important;border:1px solid #edd4d7!important}
+.premium-chip{background:var(--brand-pink-soft-2)!important;color:var(--brand-pink-dark)!important;border:1px solid #edd4d7!important}
 
-/* Today tab should no longer have a dark standalone card */
 .discover-diff{background:linear-gradient(135deg,#fff8f4,#fffaf7 65%,#fff)!important;border-color:var(--sync-border)!important}
 .today-score{
   background:#fff!important;
@@ -29,20 +95,45 @@
   border:1px solid var(--sync-border)!important;
   box-shadow:none!important;
 }
-.today-score b{color:var(--sync-rose)!important}
+.today-score b{color:var(--brand-pink)!important}
 .today-score span,.today-score small{color:#8b7d77!important}
 .today-cards article{background:#fff!important;border-color:var(--sync-border)!important}
-.today-cards article>span{background:#fff0f2!important;color:var(--sync-rose)!important}
-.today-actions button.primary{background:var(--sync-rose)!important;border-color:var(--sync-rose)!important}
+.today-cards article>span{background:var(--brand-pink-soft)!important;color:var(--brand-pink-deep)!important}
+.today-actions button.primary{background:var(--brand-pink)!important;border-color:var(--brand-pink)!important}
 
-/* Date planner details follow the same card/border/button palette */
+/* ---------------- DATE TAB ---------------- */
+#content:has(.ieum-date-insert) .eyebrow,
+#content:has(.ieum-date-insert) .timeline-item small{
+  color:var(--brand-pink-deep)!important;
+}
+#content:has(.ieum-date-insert) .btn.primary,
+#content:has(.ieum-date-insert) .ieum-up-btn.primary{
+  background:var(--brand-pink)!important;
+  color:#fff!important;
+}
+#content:has(.ieum-date-insert) .btn.primary:hover,
+#content:has(.ieum-date-insert) .ieum-up-btn.primary:hover{background:var(--brand-pink-deep)!important}
+#content:has(.ieum-date-insert) .notice-line{
+  background:#fff5f6!important;
+  color:#91616a!important;
+}
+#content:has(.ieum-date-insert) .timeline-icon{
+  background:var(--brand-pink-soft)!important;
+  color:var(--brand-pink-deep)!important;
+}
+#content:has(.ieum-date-insert) select:focus,
+#content:has(.ieum-date-insert) input:focus{
+  border-color:var(--brand-pink)!important;
+  outline-color:#ef9aa4!important;
+}
+
 .city-tabs button{background:#fff!important;border-color:var(--sync-border)!important;color:#5d504a!important}
-.city-tabs button.active{background:var(--sync-rose)!important;color:#fff!important;border-color:var(--sync-rose)!important}
+.city-tabs button.active{background:var(--brand-pink)!important;color:#fff!important;border-color:var(--brand-pink)!important}
 .route-summary,.route-timeline{background:#fff!important;border-color:var(--sync-border)!important}
-.stay-toggle{background:#fff0f2!important}
-.stay-toggle button,.route-actions .main{background:var(--sync-rose)!important;color:#fff!important}
+.stay-toggle{background:var(--brand-pink-soft)!important}
+.stay-toggle button,.route-actions .main{background:var(--brand-pink)!important;color:#fff!important}
+.route-actions .main:hover,.stay-toggle button:hover{background:var(--brand-pink-deep)!important}
 .route-actions .sub{background:#f6eee8!important;color:#5f514a!important}
-.timeline-item time{color:#a44f59!important}
+.timeline-item time{color:var(--brand-pink-deep)!important}
 
-/* Keep the same page-level surface across all four tabs */
 #content{--tab-surface:#fffaf7}
